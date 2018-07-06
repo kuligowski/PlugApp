@@ -1,5 +1,7 @@
 # PlugApp
 
+![](Architecture.png)
+
 ## Supported platforms
 Required: Windows, other optional
 
