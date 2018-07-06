@@ -28,7 +28,7 @@ namespace PluginApp
                 using (var pluginMgr = PluginManager.Instance)
                 {
                     var pluginsInfo = pluginMgr.GetPluginsInfo();
-                    while (true)
+                    while (true) //TODO: Smart end condition, esc key?
                     {
                         var selectedOption = ConsoleManager.GetSelectedTopLevelOption();
                         switch (selectedOption)
