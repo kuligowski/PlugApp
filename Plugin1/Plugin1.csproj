@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\PluginShared\PluginShared.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Kulig</Authors>
+    <Company>My company</Company>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyTitle>Plugin 1 title</AssemblyTitle>
+    <Description>Plugin 1</Description>
+    <Copyright>1234 inc</Copyright>
+    <UserSecretsId>xyz123</UserSecretsId>
+  </PropertyGroup>
+
+</Project>
