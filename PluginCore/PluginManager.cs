@@ -71,6 +71,12 @@ namespace PluginCore
         public IPlugin RequestPlugin(Type pluginType)
         {
             var pluginclass = GetPluginsInfo().FirstOrDefault(p => p.PluginType.FullName == pluginType.FullName);
+            if (pluginclass == null)
+            {
+                //Log.Error($"Missing plugin type {pluginType.FullName}");
+                return null;
+            }
+            
             return (IPlugin)Activator.CreateInstance(pluginclass.PluginType);
         }
 
