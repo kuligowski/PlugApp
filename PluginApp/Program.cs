@@ -19,11 +19,6 @@ namespace PluginApp
         Execute
     }
 
-    // private static Dictionary<InteractiveOps, Func<string, string>> availableFunctions = new Dictionary<InteractiveOps, Func<string, string>>
-    //     {
-    //         { CreateNew, }
-    //     }
-
     class Program
     {
         static void Main()
