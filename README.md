@@ -7,7 +7,7 @@ Installed mongoDB for logging:
 
 mongodb://localhost:27017
 
-Existing collection "ActivityLog"
+Existing collection "ActivityLog" in database "pluginApp"
 
 ## Supported platforms
 Required: Windows, other optional
