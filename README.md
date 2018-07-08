@@ -38,3 +38,9 @@ This module will not communicate directly with plugins in any way except for thr
 ## Future work
 
 Web layer for reading app activity (log in mongoDb)
+
+All TODOs in code:
+[ ] Caching plugins should be decided by config
+[ ] Use external library for interactive console
+[ ] Use enum values instead of strings in menu items
+[ ] Wrap mongoDb usage in Logger into another library for reuse
