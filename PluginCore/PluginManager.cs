@@ -71,8 +71,8 @@ namespace PluginCore
                 //Log.Error($"Missing plugin type {pluginType.FullName}");
                 return null;
             }
-            IPlugin plugin;
-            if (singleton && this.cache.TryGetValue(pluginType, out plugin))
+            
+            if (singleton && this.cache.TryGetValue(pluginType, out IPlugin plugin))
             {
                 return plugin;
             }
@@ -92,9 +92,12 @@ namespace PluginCore
         }
 
         //IEnumerable for auto dicovery
-        public PluginsInfo GetPluginsInfo()
+        public IEnumerable<PluginDecorator> GetPluginsInfo()
         {
-            return new PluginsInfo(plugins.Value.Values);
+            foreach (var v in plugins.Value.Values)
+            {
+                yield return v;
+            }
         }
 
         public void Dispose()

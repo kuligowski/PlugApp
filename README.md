@@ -2,6 +2,11 @@
 
 ![](Architecture.png)
 
+## Requirements
+Installed mongoDB for logging:
+mongodb://localhost:27017
+Existing collection "ActivityLog"
+
 ## Supported platforms
 Required: Windows, other optional
 
