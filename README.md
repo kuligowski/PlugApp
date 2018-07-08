@@ -35,6 +35,14 @@ Module responsible for user interface, data presentation and enabling interactio
 
 This module will not communicate directly with plugins in any way except for through plugin manager.
 
+## DbProvider
+
+Module providing handle to Mongo database
+
+## Log 
+
+Log module for logging all necessary activities and events such as exceptions. Uses database to store this info.
+
 ## Future work
 
 Web layer for reading app activity (log in mongoDb)
