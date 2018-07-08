@@ -92,7 +92,7 @@ namespace PluginApp
             }
             catch (Exception e)
             {
-                Console.WriteLine($"An error occured, contact admin - {e}");
+                Console.WriteLine($"An error occured, contact admin - {e.Message}");
                 logger?.LogCritical(e, $"An error occured, contact admin - {e.Message}");
             }
         }
