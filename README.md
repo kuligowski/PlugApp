@@ -34,3 +34,7 @@ Plugin manager will facilitate two types of plugin objects instatiation - creati
 Module responsible for user interface, data presentation and enabling interaction with loaded plugins.
 
 This module will not communicate directly with plugins in any way except for through plugin manager.
+
+## Future work
+
+Web layer for reading app activity (log in mongoDb)
