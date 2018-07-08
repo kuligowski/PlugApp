@@ -17,7 +17,7 @@ Required: Windows, other optional
 
 ## Plugin definition/interface (PluginShared.csproj)
 
-IPlugin definition which contains Execute method will. Defines the contract to which every plugin provider must submit.
+IPlugin definition which contains Execute method. It defines the contract to which every plugin provider must submit.
 
 
 ## Plugin manager/provider (PluginCore.csproj)
