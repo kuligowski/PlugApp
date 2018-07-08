@@ -91,7 +91,7 @@ namespace PluginCore
             return this.RequestPlugin(pluginType)?.Execute(input);
         }
 
-        //IEnumerable for auto dicovery
+        //yield for auto dicovery
         public IEnumerable<PluginDecorator> GetPluginsInfo()
         {
             foreach (var v in plugins.Value.Values)
