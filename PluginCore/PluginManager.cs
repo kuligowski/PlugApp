@@ -9,23 +9,13 @@ using PluginShared;
 
 namespace PluginCore
 {
-    public class PluginManager : IDisposable, IPluginProvider
+    public sealed class PluginManager : IPluginProvider
     {
-        private static readonly Lazy<PluginManager> instance = new Lazy<PluginManager>(() => new PluginManager());
         private static Lazy<ConcurrentDictionary<string, PluginDecorator>> plugins;
+
+        private ConcurrentDictionary<Type, IPlugin> cache;
         private FileSystemWatcher watcher;
         private string pluginLoadPath;
-
-        private PluginManager()
-        {
-            this.pluginLoadPath = Path.Combine(
-                                    Path.GetDirectoryName(
-                                        Assembly.GetExecutingAssembly().Location), "Plugins").Trim().ToLower().ToString();
-            this.InitWatcher();
-            plugins = new Lazy<ConcurrentDictionary<string, PluginDecorator>>(
-                                    () => new ConcurrentDictionary<string, PluginDecorator>());
-            this.LoadPlugins();
-        }
 
         private void InitWatcher()
         {
@@ -34,9 +24,9 @@ namespace PluginCore
             this.watcher.EnableRaisingEvents = true;
         }
 
-        private static void WatcherOnCreated(object sender, FileSystemEventArgs e)
+        private void WatcherOnCreated(object sender, FileSystemEventArgs e)
         {
-            PluginManager.Instance.LoadPlugin(e.FullPath.Trim().ToLower());
+            this.LoadPlugin(e.FullPath.Trim().ToLower());
         }
 
         private void LoadPlugins()
@@ -60,15 +50,20 @@ namespace PluginCore
             });
         }
 
-        public static PluginManager Instance
+        public PluginManager()
         {
-            get
-            {
-                return instance.Value;
-            }
+            this.pluginLoadPath = Path.Combine(
+                                    Path.GetDirectoryName(
+                                        Assembly.GetExecutingAssembly().Location), "Plugins").Trim().ToLower().ToString();
+            this.InitWatcher();
+            plugins = new Lazy<ConcurrentDictionary<string, PluginDecorator>>(
+                                    () => new ConcurrentDictionary<string, PluginDecorator>());
+            this.LoadPlugins();
+            this.cache = new ConcurrentDictionary<Type, IPlugin>();
         }
 
-        public IPlugin RequestPlugin(Type pluginType)
+        //Caching decision should be made elsewhere, ie. in config or plugin custom Attribute
+        public IPlugin RequestPlugin(Type pluginType, bool singleton = false)
         {
             var pluginclass = GetPluginsInfo().FirstOrDefault(p => p.PluginType.FullName == pluginType.FullName);
             if (pluginclass == null)
@@ -76,8 +71,19 @@ namespace PluginCore
                 //Log.Error($"Missing plugin type {pluginType.FullName}");
                 return null;
             }
-            
-            return (IPlugin)Activator.CreateInstance(pluginclass.PluginType);
+            IPlugin plugin;
+            if (singleton && this.cache.TryGetValue(pluginType, out plugin))
+            {
+                return plugin;
+            }
+
+            plugin = (IPlugin)Activator.CreateInstance(pluginclass.PluginType);
+            if (singleton)
+            {
+                this.cache.TryAdd(pluginType, plugin);
+            }
+
+            return plugin;
         }
 
         public string ExecutePlugin(Type pluginType, string input)
@@ -86,12 +92,9 @@ namespace PluginCore
         }
 
         //IEnumerable for auto dicovery
-        public IEnumerable<PluginDecorator> GetPluginsInfo()
+        public PluginsInfo GetPluginsInfo()
         {
-            foreach (var p in plugins.Value.Values)
-            {
-                yield return p;
-            }
+            return new PluginsInfo(plugins.Value.Values);
         }
 
         public void Dispose()
