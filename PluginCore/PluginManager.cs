@@ -13,6 +13,7 @@ namespace PluginCore
     {
         private static Lazy<ConcurrentDictionary<string, PluginDecorator>> plugins;
 
+        private const string PluginsDirectory = "Plugins";
         private ConcurrentDictionary<Type, IPlugin> cache;
         private FileSystemWatcher watcher;
         private string pluginLoadPath;
@@ -54,7 +55,8 @@ namespace PluginCore
         {
             this.pluginLoadPath = Path.Combine(
                                     Path.GetDirectoryName(
-                                        Assembly.GetExecutingAssembly().Location), "Plugins").Trim().ToLower().ToString();
+                                        Assembly.GetExecutingAssembly().Location), PluginsDirectory).Trim().ToLower().ToString();
+            Directory.CreateDirectory(this.pluginLoadPath);
             this.InitWatcher();
             plugins = new Lazy<ConcurrentDictionary<string, PluginDecorator>>(
                                     () => new ConcurrentDictionary<string, PluginDecorator>());
