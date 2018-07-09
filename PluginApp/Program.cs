@@ -39,7 +39,7 @@ namespace PluginApp
             var pluginMgr = dependencyProvider.GetService<IPluginProvider>();
             
             // set logger to null if no loging/no mongoDb configured
-            return (pluginMgr, logger /* null */);            
+            return (pluginMgr, null /* logger */);            
         }
 
         static void Main()
@@ -92,7 +92,7 @@ namespace PluginApp
             }
             catch (Exception e)
             {
-                Console.WriteLine($"An error occured, contact admin - {e}");
+                Console.WriteLine($"An error occured, contact admin - {e.Message}");
                 logger?.LogCritical(e, $"An error occured, contact admin - {e.Message}");
             }
         }

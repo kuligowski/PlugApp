@@ -16,18 +16,5 @@ namespace Extensions
             factory.AddProvider(new LoggerProvider(mongoDb));
             return factory;
         }
-
-        // public static string PluginsToString(this IEnumerable<PluginDecorator> pluginsInfo)
-        // {
-        //     // StringBuilder sb = new StringBuilder();
-        //     // foreach (var pi in pluginsInfo)
-        //     // {
-        //     //     sb.
-        //     //     var info = $"Description {pi.Description} Assembly {pi.Assembly.FullName}";
-        //     // }
-
-        //     // return sb.ToString();
-        //     return string.Join("\n", pluginsInfo.Select(pi => $"Description {pi.Description} Assembly {pi.Assembly.FullName}"));
-        // }
     }
 }

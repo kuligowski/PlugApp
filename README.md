@@ -3,9 +3,13 @@
 ![](Architecture.png)
 
 ## Requirements
+'Plugins' directory in PluginsApp binary directory for storing plugins
+
 Installed mongoDB for logging:
+
 mongodb://localhost:27017
-Existing collection "ActivityLog"
+
+Existing collection "ActivityLog" in database "pluginApp"
 
 ## Supported platforms
 Required: Windows, other optional
@@ -15,7 +19,7 @@ Required: Windows, other optional
 
 ## Plugin definition/interface (PluginShared.csproj)
 
-IPlugin definition which contains Execute method will. Defines the contract to which every plugin provider must submit.
+IPlugin definition which contains Execute method. It defines the contract to which every plugin provider must submit.
 
 
 ## Plugin manager/provider (PluginCore.csproj)
@@ -32,3 +36,22 @@ Plugin manager will facilitate two types of plugin objects instatiation - creati
 Module responsible for user interface, data presentation and enabling interaction with loaded plugins.
 
 This module will not communicate directly with plugins in any way except for through plugin manager.
+
+## DbProvider
+
+Module providing handle to Mongo database
+
+## Log 
+
+Log module for logging all necessary activities and events such as exceptions. Uses database to store this info.
+
+## Future work
+
+Web layer for reading app activity (log in mongoDb)
+
+All TODOs in code:
+- [ ] Make directory for storing plugins configurable
+- [ ] Caching plugins should be decided by config
+- [ ] Use external library for interactive console
+- [ ] Use enum values instead of strings in menu items
+- [ ] Wrap mongoDb usage in Logger into another library for reuse

@@ -64,7 +64,7 @@ namespace PluginCore
             this.cache = new ConcurrentDictionary<Type, IPlugin>();
         }
 
-        //Caching decision should be made elsewhere, ie. in config or plugin custom Attribute
+        //TODO: Caching decision should be made elsewhere, ie. in config or plugin custom Attribute
         public IPlugin RequestPlugin(Type pluginType, bool singleton = false)
         {
             var pluginclass = GetPluginsInfo().FirstOrDefault(p => p.PluginType.FullName == pluginType.FullName);
@@ -93,7 +93,7 @@ namespace PluginCore
             return this.RequestPlugin(pluginType)?.Execute(input);
         }
 
-        //IEnumerable for auto dicovery
+        //yield for auto dicovery
         public IEnumerable<PluginDecorator> GetPluginsInfo()
         {
             foreach (var v in plugins.Value.Values)
