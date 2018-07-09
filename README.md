@@ -3,6 +3,8 @@
 ![](Architecture.png)
 
 ## Requirements
+'Plugins' directory in PluginsApp binary directory for storing plugins
+
 Installed mongoDB for logging:
 
 mongodb://localhost:27017
@@ -48,6 +50,7 @@ Log module for logging all necessary activities and events such as exceptions. U
 Web layer for reading app activity (log in mongoDb)
 
 All TODOs in code:
+- [ ] Make directory for storing plugins configurable
 - [ ] Caching plugins should be decided by config
 - [ ] Use external library for interactive console
 - [ ] Use enum values instead of strings in menu items
