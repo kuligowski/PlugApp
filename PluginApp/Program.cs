@@ -39,7 +39,7 @@ namespace PluginApp
             var pluginMgr = dependencyProvider.GetService<IPluginProvider>();
             
             // set logger to null if no loging/no mongoDb configured
-            return (pluginMgr, logger /* null */);            
+            return (pluginMgr, null /* logger */);            
         }
 
         static void Main()
